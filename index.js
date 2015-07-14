@@ -1,21 +1,9 @@
 #! /usr/bin/env node
 
 var commander = require('commander');
-var todo = require('./todo');
-var taskManager = require('./taskmanager');
-var fs = require('fs');
-var properties = require('./properties');
-var mgr = (function() {
-  var raw = fs.readFileSync(properties.fileStore,
-    properties.fileOptions);
-  var tasks = JSON.parse(raw, function(k, v) {
-    if (v instanceof Object && v._type === 'todo') {
-      return todo.thaw(v);
-    }
-    return v;
-  });
-  return new taskManager(tasks);
-}());
+var taskManager = require('./taskManager');
+
+var mgr = taskManager.thaw();
 
 commander
   .version('0.0.0');
@@ -30,6 +18,12 @@ commander
   .description('Deletes all tasks')
   .action(function() {
     mgr.flush();
+  });
+commander
+  .command('whipe')
+  .description('remove the first todo')
+  .action(function() {
+    mgr.whipe();
   });
 commander
   .command('add [desc...]')

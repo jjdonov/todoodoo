@@ -16,10 +16,14 @@ taskManager.prototype = {
     return task;
   },
   whipe: function(id) {
+    if(!id) {
+      id = 0;
+    }
     this.tasks.splice(id, 1);
+    this.store();
   },
   flush: function() {
-    
+
     App.log(this.tasks);
     this.tasks = [];
     this.store();
@@ -41,6 +45,18 @@ taskManager.prototype = {
     App.log(App.homeDirectory());
     fs.writeFileSync(properties.fileStore, _tasks);
   }
+};
+
+taskManager.thaw = function() {
+  var raw = fs.readFileSync(properties.fileStore,
+    properties.fileOptions);
+  var tasks = JSON.parse(raw, function(k, v) {
+    if (v instanceof Object && v._type === 'todo') {
+      return todo.thaw(v);
+    }
+    return v;
+  });
+  return new taskManager(tasks);
 };
 
 module.exports = taskManager;
