@@ -17,7 +17,7 @@ taskManager.prototype = {
     return task;
   },
   whipe: function(id) {
-    if(!id) {
+    if (!id) {
       id = 0;
     }
     this.tasks.splice(id, 1);
@@ -33,7 +33,7 @@ taskManager.prototype = {
       App.log('nuttin');
     } else {
       this.tasks.map(function(task, index) {
-        if(index !== 0) {
+        if (index !== 0) {
           App.log();
         }
         App.log(task);
@@ -41,14 +41,7 @@ taskManager.prototype = {
     }
   },
   store: function() {
-    var _tasks = JSON.stringify(this.tasks);
-    App.log('\n----------------------');
-    App.log(  '     this is a        ');
-    App.log(  ' LEAN MOAR production ');
-    App.log(  '----------------------');
-    App.log(_tasks);
-    App.log(App.homeDirectory());
-    fs.writeFileSync(properties.fileStore, _tasks);
+    fs.writeFileSync(properties.fileStore, JSON.stringify(this.tasks));
   }
 };
 

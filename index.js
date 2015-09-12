@@ -31,4 +31,8 @@ commander
   .action(function(taskDesc) {
     mgr.create(taskDesc);
   });
+commander.on('--help', function() {
+  console.log(  '     this is a        ');
+  console.log(  ' LEAN MO∀R production ');
+});
 commander.parse(process.argv);
