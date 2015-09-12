@@ -30,6 +30,5 @@ commander
   .description('Create a new task with the description')
   .action(function(taskDesc) {
     mgr.create(taskDesc);
-    mgr.store();
   });
 commander.parse(process.argv);

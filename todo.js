@@ -1,7 +1,11 @@
 var App = require('./app');
+var fmt = require('string-template');
 
 var todo = function todo(name, isCompleted, timeStamp) {
   var self = this;
+  if(Array.isArray(name)) {
+    name = name.join(' ');
+  }
   this.name = name;
   this.isCompleted = isCompleted || false;
   this.timeStamp = timeStamp || new Date();
@@ -9,7 +13,8 @@ var todo = function todo(name, isCompleted, timeStamp) {
 };
 
 todo.prototype.toString = function toString() {
-    return "\npooo" + JSON.stringify(this);
+    var template = 'Name:\t{name}\nStatus:\t{isCompleted}\nCreated:\t{timeStamp}';
+    return fmt(template, this);
 };
 
 todo.thaw = function thaw(obj) {

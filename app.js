@@ -3,14 +3,20 @@ var path = require('path');
 var home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 var todo = require('./todo');
 
-var App = (function(){
+var App = (function() {
   function _log(args) {
+    if (!args) {
+      printLine('');
+      return;
+    }
     args = args.toString();
     var lines = args.split('\n');
-    lines.forEach(function(line, i) {
-      var preamble = emoji.hankey + ' ';
-      console.log(preamble + line.toString());
-    });
+    lines.forEach(printLine);
+  }
+
+  function printLine(line, i) {
+    var preamble = emoji.hankey + ' ';
+    console.log(preamble + line.toString());
   }
 
   return {

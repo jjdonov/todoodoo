@@ -13,6 +13,7 @@ taskManager.prototype = {
   create: function(taskDesc) {
     var task = new todo(taskDesc);
     this.tasks.push(task);
+    this.store(task);
     return task;
   },
   whipe: function(id) {
@@ -23,7 +24,6 @@ taskManager.prototype = {
     this.store();
   },
   flush: function() {
-
     App.log(this.tasks);
     this.tasks = [];
     this.store();
@@ -32,7 +32,12 @@ taskManager.prototype = {
     if (this.tasks.length === 0) {
       App.log('nuttin');
     } else {
-      App.log(this.tasks);
+      this.tasks.map(function(task, index) {
+        if(index !== 0) {
+          App.log();
+        }
+        App.log(task);
+      });
     }
   },
   store: function() {

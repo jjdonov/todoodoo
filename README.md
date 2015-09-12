@@ -8,6 +8,7 @@
 
     dump           Tells you what you need to do.
     flush          Deletes all tasks
+    whipe          remove the first todo
     add [desc...]  Create a new task with the description
 
   Options:
